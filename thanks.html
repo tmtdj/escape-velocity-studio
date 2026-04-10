@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Got it | Escape Velocity Studio</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0b0f1a;
+      color: #e0e4ed;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    }
+    .check {
+      font-size: 64px;
+      margin-bottom: 24px;
+      opacity: 0;
+      transform: scale(0.5);
+      animation: pop 0.5s ease 0.2s forwards;
+    }
+    @keyframes pop {
+      to { opacity: 1; transform: scale(1); }
+    }
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 900;
+      color: #7df3ff;
+      letter-spacing: -2px;
+      text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+    p {
+      font-size: 18px;
+      color: #8892a8;
+      margin-bottom: 12px;
+      line-height: 1.7;
+      max-width: 480px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.6s forwards;
+    }
+    .timeline {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f0f2f8;
+      margin-top: 8px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.8s forwards;
+    }
+    a {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #7df3ff;
+      color: #0b0f1a;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 1s forwards;
+    }
+    a:hover { background: #b8f8ff; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="check">&#10003;</div>
+    <h1>Got it.</h1>
+    <p>I'll read everything you wrote and get back to you within 48 hours. If it's urgent, I'll know.</p>
+    <p class="timeline">No auto-reply. No funnel. Just me, reading it.</p>
+    <a href="/">Back to the homepage</a>
+  </div>
+</body>
+</html>
