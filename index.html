@@ -214,8 +214,10 @@
       span.style.transform = 'translateY(20px)';
       span.style.transition = `opacity 0.4s ease ${i * 0.1}s, transform 0.4s ease ${i * 0.1}s`;
       if (word === 'impact') {
-        span.style.color = '#e07830';
-        span.style.webkitTextFillColor = '#e07830';
+        span.style.color = '#7df3ff';
+        span.style.webkitTextFillColor = '#7df3ff';
+        span.style.textShadow = '0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4';
+        span.classList.add('impact-word');
       }
       headline.appendChild(span);
       requestAnimationFrame(() => {
@@ -225,6 +227,58 @@
         });
       });
     });
+
+    // 1b. Sparks on "impact" word after it appears
+    setTimeout(() => {
+      const impactEl = document.querySelector('.impact-word');
+      if (impactEl) {
+        const impactCanvas = document.createElement('canvas');
+        impactCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99;';
+        document.body.appendChild(impactCanvas);
+        const ictx = impactCanvas.getContext('2d');
+        impactCanvas.width = window.innerWidth;
+        impactCanvas.height = window.innerHeight;
+        let impactSparks = [];
+        const rect = impactEl.getBoundingClientRect();
+
+        // Burst of sparks
+        for (let j = 0; j < 12; j++) {
+          impactSparks.push({
+            x: rect.left + Math.random() * rect.width,
+            y: rect.top + Math.random() * rect.height,
+            vx: (Math.random() - 0.5) * 3,
+            vy: (Math.random() - 0.5) * 3 - 1,
+            life: 1,
+            size: Math.random() * 2 + 0.5
+          });
+        }
+
+        function drawImpactSparks() {
+          ictx.clearRect(0, 0, impactCanvas.width, impactCanvas.height);
+          impactSparks.forEach(s => {
+            s.x += s.vx;
+            s.y += s.vy;
+            s.vy += 0.08;
+            s.life -= 0.015;
+            if (s.life <= 0) return;
+            ictx.beginPath();
+            ictx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
+            ictx.fillStyle = `rgba(125, 243, 255, ${s.life * 0.6})`;
+            ictx.shadowColor = '#7df3ff';
+            ictx.shadowBlur = 6;
+            ictx.fill();
+            ictx.shadowBlur = 0;
+          });
+          impactSparks = impactSparks.filter(s => s.life > 0);
+          if (impactSparks.length > 0) {
+            requestAnimationFrame(drawImpactSparks);
+          } else {
+            impactCanvas.remove();
+          }
+        }
+        drawImpactSparks();
+      }
+    }, 600); // triggers when "impact" word appears
 
     // 2. Neon sparks falling from logo
     const sparkCanvas = document.createElement('canvas');

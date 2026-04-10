@@ -171,7 +171,8 @@ body {
 .hero-accent {
   width: 80px;
   height: 4px;
-  background: #e07830;
+  background: #7df3ff;
+  box-shadow: 0 0 8px #7df3ff, 0 0 20px #0fa8c4;
   margin-bottom: 48px;
   opacity: 0;
   animation: fadeInUp 0.8s ease 1.2s forwards;
