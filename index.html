@@ -204,7 +204,7 @@
 
     // 1. Word-by-word hero with "impact" in orange
     const headline = document.querySelector('.hero-headline');
-    const words = 'I help companies have the impact they keep talking about having.'.split(' ');
+    const words = 'I help companies have the impact they keep talking about.'.split(' ');
     words.forEach((word, i) => {
       const span = document.createElement('span');
       span.textContent = word;
@@ -386,7 +386,7 @@
         if (dot.life <= 0) return;
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, 2 * dot.life, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(224, 120, 48, ${dot.life * 0.4})`;
+        ctx.fillStyle = `rgba(125, 243, 255, ${dot.life * 0.4})`;
         ctx.fill();
       });
       dots = dots.filter(d => d.life > 0);
