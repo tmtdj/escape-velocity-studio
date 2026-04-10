@@ -58,7 +58,14 @@
     <div class="logo">
       <span class="logo-text">Escape Velocity Studio</span>
     </div>
-    <nav>
+    <nav class="nav-desktop">
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav-mobile" id="navMobile">
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -180,6 +187,20 @@
       el.href = 'mailto:' + u + '@' + d + '?subject=Impact%20Inquiry';
       el.textContent = 'Get in touch';
     })();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMobile = document.getElementById('navMobile');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navMobile.classList.toggle('open');
+    });
+    navMobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navMobile.classList.remove('open');
+      });
+    });
 
     // 1. Word-by-word hero with "impact" in orange
     const headline = document.querySelector('.hero-headline');

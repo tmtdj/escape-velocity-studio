@@ -86,7 +86,7 @@ body {
     0 0 100px #0fa8c4;
 }
 
-.topbar nav a {
+.nav-desktop a {
   color: #888;
   text-decoration: none;
   font-size: 14px;
@@ -95,8 +95,57 @@ body {
   transition: color 0.2s;
 }
 
-.topbar nav a:hover {
+.nav-desktop a:hover {
   color: #e07830;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open span:first-child {
+  transform: rotate(45deg) translate(3px, 3px);
+}
+
+.hamburger.open span:last-child {
+  transform: rotate(-45deg) translate(3px, -3px);
+}
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background: rgba(11, 15, 26, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 8px;
+  padding: 16px 24px;
+}
+
+.nav-mobile.open {
+  display: block;
+}
+
+.nav-mobile a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* Hero */
@@ -373,9 +422,11 @@ footer {
     padding: 16px 20px;
     gap: 12px;
   }
-  .topbar nav a {
-    margin-left: 16px;
-    font-size: 13px;
+  .nav-desktop {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
   }
   .logo-text {
     font-size: 32px !important;
