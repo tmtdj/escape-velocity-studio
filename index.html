@@ -71,7 +71,7 @@
   </div>
 
   <section class="hero">
-    <h1 class="hero-headline"></h1>
+    <h1 class="hero-headline">I help companies have the impact they keep talking about.</h1>
     <div class="hero-bio">
       <div class="hero-photo">
         <img src="assets/TimdeJardine.jpeg" alt="Tim de Jardine" width="72" height="72">
@@ -258,6 +258,7 @@
 
     // 1. Word-by-word hero with "impact" in orange
     const headline = document.querySelector('.hero-headline');
+    headline.textContent = '';
     const words = 'I help companies have the impact they keep talking about.'.split(' ');
     words.forEach((word, i) => {
       const span = document.createElement('span');
