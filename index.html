@@ -160,9 +160,51 @@
   <section class="contact" id="contact">
     <div class="contact-inner">
       <h2>Let's talk</h2>
-      <p>If you've got a product problem and you're tired of talking about fixing it, get in touch.</p>
+      <p>If you've got a product problem and you're tired of talking about fixing it, let's talk.</p>
       <p class="availability">Available May 2026</p>
-      <a href="#" class="cta-contact" id="email-link">Get in touch</a>
+      <form action="https://formspree.io/f/mwvwdykn" method="POST" class="contact-form">
+        <input type="text" name="_gotcha" style="display:none">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-field">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-field">
+            <label for="team-size">Team size</label>
+            <select id="team-size" name="team-size" required>
+              <option value="" disabled selected>Select</option>
+              <option value="1-5">1-5</option>
+              <option value="5-15">5-15</option>
+              <option value="15-50">15-50</option>
+              <option value="50+">50+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="timeline">When do you need help?</label>
+          <select id="timeline" name="timeline" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Now">Now</option>
+            <option value="Next month">Next month</option>
+            <option value="Exploring">Exploring</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="problem">What's the product problem?</label>
+          <textarea id="problem" name="problem" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="cta-contact">Send</button>
+      </form>
       <div class="social-links">
         <a href="https://www.linkedin.com/in/timdej/" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -179,13 +221,6 @@
   </footer>
 
   <script>
-    (function() {
-      var u = 'tdejardine';
-      var d = 'gmail.com';
-      var el = document.getElementById('email-link');
-      el.href = 'mailto:' + u + '@' + d + '?subject=Impact%20Inquiry';
-      el.textContent = 'Get in touch';
-    })();
 
     // Hamburger menu toggle
     const hamburger = document.getElementById('hamburger');
