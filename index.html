@@ -49,7 +49,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="loading">
+  <script>history.scrollRestoration = 'manual'; window.scrollTo(0,0);</script>
 
   <!-- Scroll progress bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -256,88 +257,28 @@
       });
     });
 
-    // 1. Word-by-word hero with "impact" in orange
+
+    window.scrollTo(0, 0);
+
+    // === LOAD SEQUENCE ===
+    // 1. Neon sign flickers on (0-2s)
+    // 2. Sparks fall from logo (1.5-3.5s)
+    // 3. Headline appears word by word slowly (2.5s+)
+    // 4. Photo + paragraph fades in
+    // 5. CTA button fades in last
+
+    const logoEl = document.querySelector('.logo-text');
     const headline = document.querySelector('.hero-headline');
-    headline.textContent = '';
-    const words = 'I help companies have the impact they keep talking about.'.split(' ');
-    words.forEach((word, i) => {
-      const span = document.createElement('span');
-      span.textContent = word;
-      span.style.display = 'inline-block';
-      span.style.marginRight = '0.3em';
-      span.style.opacity = '0';
-      span.style.transform = 'translateY(20px)';
-      span.style.transition = `opacity 0.4s ease ${i * 0.1}s, transform 0.4s ease ${i * 0.1}s`;
-      if (word === 'impact') {
-        span.style.color = '#7df3ff';
-        span.style.webkitTextFillColor = '#7df3ff';
-        span.style.textShadow = '0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4';
-        span.classList.add('impact-word');
-      }
-      headline.appendChild(span);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          span.style.opacity = '1';
-          span.style.transform = 'translateY(0)';
-        });
-      });
-    });
+    const heroBio = document.querySelector('.hero-bio');
+    const ctaHero = document.querySelector('.cta-hero');
 
-    // 1b. Sparks on "impact" word after it appears
+    // Step 1: Neon flicker
     setTimeout(() => {
-      const impactEl = document.querySelector('.impact-word');
-      if (impactEl) {
-        const impactCanvas = document.createElement('canvas');
-        impactCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99;';
-        document.body.appendChild(impactCanvas);
-        const ictx = impactCanvas.getContext('2d');
-        impactCanvas.width = window.innerWidth;
-        impactCanvas.height = window.innerHeight;
-        let impactSparks = [];
-        const rect = impactEl.getBoundingClientRect();
+      logoEl.classList.add('flicker');
+    }, 200);
 
-        // Burst of sparks
-        for (let j = 0; j < 12; j++) {
-          impactSparks.push({
-            x: rect.left + Math.random() * rect.width,
-            y: rect.top + Math.random() * rect.height,
-            vx: (Math.random() - 0.5) * 3,
-            vy: (Math.random() - 0.5) * 3 - 1,
-            life: 1,
-            size: Math.random() * 2 + 0.5
-          });
-        }
-
-        function drawImpactSparks() {
-          ictx.clearRect(0, 0, impactCanvas.width, impactCanvas.height);
-          impactSparks.forEach(s => {
-            s.x += s.vx;
-            s.y += s.vy;
-            s.vy += 0.08;
-            s.life -= 0.015;
-            if (s.life <= 0) return;
-            ictx.beginPath();
-            ictx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
-            ictx.fillStyle = `rgba(125, 243, 255, ${s.life * 0.6})`;
-            ictx.shadowColor = '#7df3ff';
-            ictx.shadowBlur = 6;
-            ictx.fill();
-            ictx.shadowBlur = 0;
-          });
-          impactSparks = impactSparks.filter(s => s.life > 0);
-          if (impactSparks.length > 0) {
-            requestAnimationFrame(drawImpactSparks);
-          } else {
-            impactCanvas.remove();
-          }
-        }
-        drawImpactSparks();
-      }
-    }, 600); // triggers when "impact" word appears
-
-    // 2. Neon sparks falling from logo
+    // Step 2: Sparks from logo after flicker settles
     const sparkCanvas = document.createElement('canvas');
-    sparkCanvas.id = 'sparkCanvas';
     sparkCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99;';
     document.body.appendChild(sparkCanvas);
     const sparkCtx = sparkCanvas.getContext('2d');
@@ -350,66 +291,141 @@
     resizeSparkCanvas();
     window.addEventListener('resize', resizeSparkCanvas);
 
-    // Get "Studio" word position — last word in logo
-    const logoEl = document.querySelector('.logo-text');
-    function getStudioRect() {
-      const text = logoEl.textContent;
-      const studioStart = text.indexOf('Studio');
-      const fullRect = logoEl.getBoundingClientRect();
-      const charWidth = fullRect.width / text.length;
-      return {
-        left: fullRect.left + studioStart * charWidth,
-        right: fullRect.right,
-        bottom: fullRect.bottom,
-        width: charWidth * 6
-      };
+    function getLogoRect() {
+      const rect = logoEl.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, bottom: rect.bottom, width: rect.width };
     }
 
     function spawnSpark() {
-      const r = getStudioRect();
+      const r = getLogoRect();
       sparks.push({
         x: r.left + Math.random() * r.width,
         y: r.bottom,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: Math.random() * 1 + 0.5,
+        vx: (Math.random() - 0.5) * 1,
+        vy: Math.random() * 1.5 + 0.5,
         life: 1,
-        size: Math.random() * 1.5 + 0.3
+        size: Math.random() * 2 + 0.5
       });
     }
 
-    // Spawn sparks subtly for first 2 seconds
-    let sparkTimer = 0;
-    const sparkInterval = setInterval(() => {
-      spawnSpark();
-      sparkTimer += 80;
-      if (sparkTimer > 2000) clearInterval(sparkInterval);
-    }, 80);
+    setTimeout(() => {
+      let sparkTimer = 0;
+      const sparkInterval = setInterval(() => {
+        for (let i = 0; i < 2; i++) spawnSpark();
+        sparkTimer += 60;
+        if (sparkTimer > 2000) clearInterval(sparkInterval);
+      }, 60);
+    }, 1500);
 
     function drawSparks() {
       sparkCtx.clearRect(0, 0, sparkCanvas.width, sparkCanvas.height);
       sparks.forEach(s => {
         s.x += s.vx;
         s.y += s.vy;
-        s.vy += 0.05; // gravity
-        s.life -= 0.008;
+        s.vy += 0.05;
+        s.life -= 0.01;
         if (s.life <= 0) return;
-
         sparkCtx.beginPath();
         sparkCtx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
-        sparkCtx.fillStyle = `rgba(125, 243, 255, ${s.life * 0.4})`;
+        sparkCtx.fillStyle = `rgba(125, 243, 255, ${s.life * 0.5})`;
         sparkCtx.shadowColor = '#7df3ff';
-        sparkCtx.shadowBlur = 4;
+        sparkCtx.shadowBlur = 5;
         sparkCtx.fill();
         sparkCtx.shadowBlur = 0;
       });
       sparks = sparks.filter(s => s.life > 0);
-      if (sparks.length > 0 || sparkTimer < 3000) {
-        requestAnimationFrame(drawSparks);
-      } else {
-        sparkCanvas.remove();
-      }
+      requestAnimationFrame(drawSparks);
     }
     drawSparks();
+
+    // Step 3: Headline word by word — slower, starts after flicker + sparks
+    headline.textContent = '';
+    const words = 'I help companies have the impact they keep talking about.'.split(' ');
+    const wordDelay = 0.18; // seconds between each word (slower)
+    const headlineStart = 2800; // ms — after flicker and sparks begin
+
+    setTimeout(() => {
+      words.forEach((word, i) => {
+        const span = document.createElement('span');
+        span.textContent = word;
+        span.style.display = 'inline-block';
+        span.style.marginRight = '0.3em';
+        span.style.opacity = '0';
+        span.style.transform = 'translateY(20px)';
+        span.style.transition = `opacity 0.5s ease ${i * wordDelay}s, transform 0.5s ease ${i * wordDelay}s`;
+        if (word === 'impact') {
+          span.style.color = '#7df3ff';
+          span.style.webkitTextFillColor = '#7df3ff';
+          span.style.textShadow = '0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4';
+          span.classList.add('impact-word');
+        }
+        headline.appendChild(span);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            span.style.opacity = '1';
+            span.style.transform = 'translateY(0)';
+          });
+        });
+      });
+
+      // Sparks on "impact" when it appears
+      const impactDelay = words.indexOf('impact') * wordDelay * 1000 + 500;
+      setTimeout(() => {
+        const impactEl = document.querySelector('.impact-word');
+        if (!impactEl) return;
+        const impactCanvas = document.createElement('canvas');
+        impactCanvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:99;';
+        document.body.appendChild(impactCanvas);
+        const ictx = impactCanvas.getContext('2d');
+        impactCanvas.width = window.innerWidth;
+        impactCanvas.height = window.innerHeight;
+        let impactSparks = [];
+        const rect = impactEl.getBoundingClientRect();
+        for (let j = 0; j < 10; j++) {
+          impactSparks.push({
+            x: rect.left + Math.random() * rect.width,
+            y: rect.top + Math.random() * rect.height,
+            vx: (Math.random() - 0.5) * 2.5,
+            vy: (Math.random() - 0.5) * 2.5 - 1,
+            life: 1,
+            size: Math.random() * 2 + 0.5
+          });
+        }
+        function drawImpactSparks() {
+          ictx.clearRect(0, 0, impactCanvas.width, impactCanvas.height);
+          impactSparks.forEach(s => {
+            s.x += s.vx; s.y += s.vy; s.vy += 0.08; s.life -= 0.015;
+            if (s.life <= 0) return;
+            ictx.beginPath();
+            ictx.arc(s.x, s.y, s.size * s.life, 0, Math.PI * 2);
+            ictx.fillStyle = `rgba(125, 243, 255, ${s.life * 0.5})`;
+            ictx.shadowColor = '#7df3ff';
+            ictx.shadowBlur = 5;
+            ictx.fill();
+            ictx.shadowBlur = 0;
+          });
+          impactSparks = impactSparks.filter(s => s.life > 0);
+          if (impactSparks.length > 0) requestAnimationFrame(drawImpactSparks);
+          else impactCanvas.remove();
+        }
+        drawImpactSparks();
+      }, impactDelay);
+
+      // Step 4: Bio (photo + paragraph) after all words done
+      const allWordsTime = words.length * wordDelay * 1000 + 600;
+      setTimeout(() => {
+        heroBio.classList.add('show');
+      }, allWordsTime);
+
+      // Step 5: CTA button last, then unlock scroll
+      setTimeout(() => {
+        ctaHero.classList.add('show');
+        setTimeout(() => {
+          document.body.classList.remove('loading');
+        }, 400);
+      }, allWordsTime + 800);
+
+    }, headlineStart);
 
     // 3. Subtle cursor dot trail
     const canvas = document.createElement('canvas');

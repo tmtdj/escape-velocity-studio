@@ -18,6 +18,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body.loading {
+  overflow: hidden;
+  height: 100vh;
+}
+
 /* Scroll progress bar */
 .scroll-progress {
   position: fixed;
@@ -70,6 +75,25 @@ body {
     0 0 50px #0fa8c4,
     0 0 100px #0fa8c4,
     0 0 150px #0fa8c4;
+  opacity: 0;
+}
+
+.logo-text.flicker {
+  animation: neonFlicker 2s ease forwards;
+}
+
+@keyframes neonFlicker {
+  0%   { opacity: 0; }
+  5%   { opacity: 1; text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4; }
+  8%   { opacity: 0.2; text-shadow: none; }
+  12%  { opacity: 1; text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4; }
+  16%  { opacity: 0; text-shadow: none; }
+  22%  { opacity: 1; text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4; }
+  25%  { opacity: 0.4; text-shadow: 0 0 2px #7df3ff; }
+  30%  { opacity: 1; text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4; }
+  33%  { opacity: 0.1; text-shadow: none; }
+  40%  { opacity: 1; text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4, 0 0 100px #0fa8c4; }
+  100% { opacity: 1; text-shadow: 0 0 4px #fff, 0 0 10px #7df3ff, 0 0 25px #7df3ff, 0 0 50px #0fa8c4, 0 0 100px #0fa8c4, 0 0 150px #0fa8c4; }
 }
 
 .logo-studio {
@@ -168,16 +192,6 @@ body {
   margin-bottom: 16px;
 }
 
-.hero-accent {
-  width: 80px;
-  height: 4px;
-  background: #7df3ff;
-  box-shadow: 0 0 8px #7df3ff, 0 0 20px #0fa8c4;
-  margin-bottom: 48px;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease 1.2s forwards;
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -194,7 +208,10 @@ body {
   align-items: center;
   gap: 24px;
   opacity: 0;
-  animation: fadeInUp 0.8s ease 1.4s forwards;
+}
+
+.hero-bio.show {
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 .hero-bio-text p {
@@ -227,6 +244,11 @@ body {
   text-decoration: none;
   border-radius: 8px;
   transition: background 0.2s;
+  opacity: 0;
+}
+
+.cta-hero.show {
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 .cta-hero:hover {
