@@ -9,5 +9,5 @@
       </feMerge>
     </filter>
   </defs>
-  <text x="18" y="26" text-anchor="middle" font-family="cursive" font-size="24" font-weight="bold" fill="#7df3ff" filter="url(#glow)">E</text>
+  <text x="18" y="26" text-anchor="middle" font-family="cursive" font-size="18" font-weight="bold" fill="#7df3ff" filter="url(#glow)">EV</text>
 </svg>
