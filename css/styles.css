@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Dancing+Script:wght@700&display=swap');
 
 * {
   margin: 0;
@@ -55,20 +55,35 @@ body {
 .topbar .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.logo-mark {
-  width: 28px;
-  height: 28px;
 }
 
 .logo-text {
+  font-family: 'Dancing Script', cursive;
   font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 3px;
-  color: #fff;
+  font-size: 26px;
+  color: #b8f8ff;
   white-space: nowrap;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 10px #7df3ff,
+    0 0 25px #7df3ff,
+    0 0 50px #0fa8c4,
+    0 0 100px #0fa8c4,
+    0 0 150px #0fa8c4;
+}
+
+.logo-studio {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 400;
+  font-size: 14px;
+  color: #b8f8ff;
+  white-space: nowrap;
+  text-shadow:
+    0 0 4px #fff,
+    0 0 10px #7df3ff,
+    0 0 25px #7df3ff,
+    0 0 50px #0fa8c4,
+    0 0 100px #0fa8c4;
 }
 
 .topbar nav a {
